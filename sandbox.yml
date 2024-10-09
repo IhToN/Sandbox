@@ -23,7 +23,6 @@
     - { role: airsonic, tags: ['airsonic'] }
     - { role: alltube, tags: ['alltube'] }
     - { role: alternatrr, tags: ['alternatrr'] }
-    - { role: appflowy, tags: ['appflowy'] }
     - { role: apprise, tags: ['apprise'] }
     - { role: archivebox, tags: ['archivebox'] }
     - { role: aria2_ng, tags: ['aria2-ng'] }
@@ -153,6 +152,7 @@
     - { role: sabthrottle, tags: ['sabthrottle'] }
     - { role: sarotate, tags: ['sarotate'] }
     - { role: semaphoreui, tags: ['semaphoreui'] }
+    - { role: siyuan, tags: ['siyuan'] }
     - { role: solr, tags: ['solr'] }
     - { role: speedtest, tags: ['speedtest'] }
     - { role: sqlitebrowser, tags: ['sqlitebrowser'] }
