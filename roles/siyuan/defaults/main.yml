@@ -1,0 +1,142 @@
+#########################################################################
+# Title:            Sandbox: SiYuan                                   #
+# Author(s):        ATAlgaba                                            #
+# URL:              https://github.com/saltyorg/Sandbox                 #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+################################
+# Basics
+################################
+
+siyuan_name: siyuan
+siyuan_auth_code: "changeme"
+
+################################
+# Paths
+################################
+
+siyuan_paths_folder: "{{ siyuan_name }}"
+siyuan_paths_location: "{{ server_appdata_path }}/{{ siyuan_paths_folder }}"
+siyuan_paths_folders_list:
+  - "{{ siyuan_paths_location }}"
+
+################################
+# Web
+################################
+
+siyuan_web_subdomain: "{{ siyuan_name }}"
+siyuan_web_domain: "{{ user.domain }}"
+siyuan_web_port: "6806"
+siyuan_web_url: "{{ 'https://' + (siyuan_web_subdomain + '.' + siyuan_web_domain
+                    if (siyuan_web_subdomain | length > 0)
+                    else siyuan_web_domain) }}"
+
+################################
+# DNS
+################################
+
+siyuan_dns_record: "{{ siyuan_web_subdomain }}"
+siyuan_dns_zone: "{{ siyuan_web_domain }}"
+siyuan_dns_proxy: "{{ dns.proxied }}"
+
+################################
+# Traefik
+################################
+
+siyuan_traefik_sso_middleware: ""
+siyuan_traefik_middleware_default: "{{ traefik_default_middleware }}"
+siyuan_traefik_middleware_custom: ""
+siyuan_traefik_certresolver: "{{ traefik_default_certresolver }}"
+siyuan_traefik_enabled: true
+
+################################
+# Docker
+################################
+
+# Container
+siyuan_docker_container: "{{ siyuan_name }}"
+
+# Image
+siyuan_docker_image_pull: true
+siyuan_docker_image_tag: "latest"
+siyuan_docker_image: "b3log/siyuan:{{ siyuan_docker_image_tag }}"
+
+# Ports
+siyuan_docker_ports_defaults: []
+siyuan_docker_ports_custom: []
+siyuan_docker_ports: "{{ siyuan_docker_ports_defaults
+                            + siyuan_docker_ports_custom }}"
+
+# Envs
+siyuan_docker_envs_default:
+  TZ: "{{ tz }}"
+  PUID: "{{ uid }}"
+  PGID: "{{ gid }}"
+siyuan_docker_envs_custom: {}
+siyuan_docker_envs: "{{ siyuan_docker_envs_default
+                           | combine(siyuan_docker_envs_custom) }}"
+
+# Commands
+siyuan_docker_commands_default: ['--workspace=/siyuan/workspace/', "--accessAuthCode={{apprise_auth_code}}"]
+siyuan_docker_commands_custom: []
+siyuan_docker_commands: "{{ siyuan_docker_commands_default
+                               + siyuan_docker_commands_custom }}"
+
+# Volumes
+siyuan_docker_volumes_default:
+  - "{{ apprise_paths_location }}:/siyuan/workspace"
+siyuan_docker_volumes_custom: []
+siyuan_docker_volumes: "{{ siyuan_docker_volumes_default
+                              + siyuan_docker_volumes_custom }}"
+
+# Devices
+siyuan_docker_devices_default: []
+siyuan_docker_devices_custom: []
+siyuan_docker_devices: "{{ siyuan_docker_devices_default
+                              + siyuan_docker_devices_custom }}"
+
+# Hosts
+siyuan_docker_hosts_default: {}
+siyuan_docker_hosts_custom: {}
+siyuan_docker_hosts: "{{ docker_hosts_common
+                            | combine(siyuan_docker_hosts_default)
+                            | combine(siyuan_docker_hosts_custom) }}"
+
+# Labels
+siyuan_docker_labels_default: {}
+siyuan_docker_labels_custom: {}
+siyuan_docker_labels: "{{ docker_labels_common
+                             | combine(siyuan_docker_labels_default)
+                             | combine(siyuan_docker_labels_custom) }}"
+
+# Hostname
+siyuan_docker_hostname: "{{ siyuan_name }}"
+
+# Networks
+siyuan_docker_networks_alias: "{{ siyuan_name }}"
+siyuan_docker_networks_default: []
+siyuan_docker_networks_custom: []
+siyuan_docker_networks: "{{ docker_networks_common
+                               + siyuan_docker_networks_default
+                               + siyuan_docker_networks_custom }}"
+
+# Capabilities
+siyuan_docker_capabilities_default: []
+siyuan_docker_capabilities_custom: []
+siyuan_docker_capabilities: "{{ siyuan_docker_capabilities_default
+                                   + siyuan_docker_capabilities_custom }}"
+
+# Security Opts
+siyuan_docker_security_opts_default: []
+siyuan_docker_security_opts_custom: []
+siyuan_docker_security_opts: "{{ siyuan_docker_security_opts_default
+                                    + siyuan_docker_security_opts_custom }}"
+
+# Restart Policy
+siyuan_docker_restart_policy: unless-stopped
+
+# State
+siyuan_docker_state: started
